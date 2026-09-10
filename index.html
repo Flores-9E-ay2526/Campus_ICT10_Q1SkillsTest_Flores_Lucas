@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Skills Test</title>
+   
+  <link rel="stylesheet" href="https://pyscript.net/releases/2026.7.3/core.css" />
+    <script type="module" src="https://pyscript.net/releases/2026.7.3/core.js"></script>
+
+</head>
+<body>
+
+    <h1>Burger Shack</h1>
+    <h3>Menu:</h3>
+
+    <div class="menu-container">
+        <div class="menu-item"><label><input type="checkbox" class="item-check" value="150.00"> classic cheeseburger</label></div>
+        <div class="menu-item"><label><input type="checkbox" class="item-check" value="195.00"> double bacon burger</label></div>
+        <div class="menu-item"><label><input type="checkbox" class="item-check" value="180.00"> spicy chicken burger</label></div>
+        <div class="menu-item"><label><input type="checkbox" class="item-check" value="85.00"> loaded cheese fries</label></div>
+    </div>
+
+    <button onclick="calculateReceipt()">Create Order</button>
+
+    <div class="receipt-container" id="receipt">
+        <div class="receipt-header">Receipt</div>
+        <div class="receipt-row"><span id="subtotal">0.00</span></div>
+        <div class="receipt-row"> <span id="tax">0.00</span></div>
+        <div class="receipt-row"><span id="total">0.00</span></div>
+    </div>
+
+    <script>
+        function calculateReceipt() {
+            const checkboxes = document.querySelectorAll('.item-check');
+            let subtotal = 0;
+
+       
+            checkboxes.forEach(cb => {
+                if (cb.checked) {
+                    subtotal += parseFloat(cb.value);
+                }
+            });
+
+          
+        const vat = subtotal * 0.12;
+         const total = subtotal + vat;
+
+            document.getElementById('subtotal').innerText = subtotal.toFixed(2);
+            document.getElementById('tax').innerText = vat.toFixed(2);
+            document.getElementById('total').innerText = total.toFixed(2);
+            document.getElementById('receipt').style.display = 'block';
+        }
+    </script>
+
+
+ <style>
+        body {
+            font-family: Times, "Times New Roman", serif;
+            margin: 30px 40px;
+            color: #000;
+        }
+        h1 {
+            font-size: 26px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            line-height: 1.2;
+        }
+        h3 {
+            font-size: 16px;
+            font-weight: bold;
+            margin-bottom: 12px;
+        }
+        .menu-container {
+            margin-bottom: 12px;
+        }
+        .menu-item {
+            margin-bottom: 4px;
+            font-size: 15px;
+        }
+        .menu-item input[type="checkbox"] {
+            margin-right: 6px;
+        }
+        button {
+            margin-top: 6px;
+            padding: 1px 6px;
+            font-size: 13px;
+            background-color: #f0f0f0;
+            border: 1px solid #767676;
+            border-radius: 2px;
+            cursor: pointer;
+        }
+        .receipt-container {
+            margin-top: 35px;
+            display: none;
+        }
+        .receipt-header {
+            font-size: 16px;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+        .receipt-row {
+            margin-bottom: 15px;
+            font-size: 15px;
+        }
+    </style>
+</body>
+</html>
